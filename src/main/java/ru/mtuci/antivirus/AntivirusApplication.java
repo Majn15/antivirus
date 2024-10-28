@@ -8,6 +8,8 @@ public class AntivirusApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AntivirusApplication.class, args);
+
 	}
+
 
 }
