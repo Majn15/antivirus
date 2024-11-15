@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface LicenseRepository extends JpaRepository<License, Long> {
-    Optional<License> findByID(int id);
+    Optional<License> findByID(long id);
 }

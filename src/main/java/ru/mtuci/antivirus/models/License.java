@@ -18,5 +18,12 @@ public class License {
     @GeneratedValue
     private int id;
 
-    private String key, public_key, name;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "public_key")
+    private String public_key;
+
+    @Column(name = "key")
+    private String key;
 }

@@ -18,11 +18,13 @@ public class User {
     @GeneratedValue
     private int id;
 
-    @Column(unique = true)
+    @Column(name = "login", unique = true)
     private String login;
+
+    @Column(name = "password")
     private String password;
 
-    @OneToOne
+    @OneToMany
     @MapsId
     private License license;
 }
