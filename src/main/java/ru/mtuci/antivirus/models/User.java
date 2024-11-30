@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.authority.GrantedAuthoritiesContainer;
 
 
 @NoArgsConstructor
@@ -27,4 +28,7 @@ public class User {
     @OneToMany
     @MapsId
     private License license;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
