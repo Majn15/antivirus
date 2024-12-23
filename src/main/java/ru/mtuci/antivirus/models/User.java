@@ -1,34 +1,38 @@
 package ru.mtuci.antivirus.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.security.core.authority.GrantedAuthoritiesContainer;
+import lombok.*;
 
+import java.util.Set;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "login", unique = true)
-    private String login;
+    @Column(nullable = false, unique = true)
+    private String username;
 
-    @Column(name = "password")
+    @Column(nullable = false)
     private String password;
 
-    @OneToMany
-    @MapsId
-    private License license;
+    @Column(nullable = false)
+    private String email;
 
-    @Enumerated(EnumType.STRING)
+    @OneToMany(mappedBy = "user")
+    private Set<Device> devices;
+
+    @OneToMany(mappedBy = "user")
+    private Set<License> licenses;
+
+    @OneToMany(mappedBy = "user")
+    private Set<LicenseHistory> licenseHistories;
+
+    @Column(nullable = false)
     private Role role;
 }

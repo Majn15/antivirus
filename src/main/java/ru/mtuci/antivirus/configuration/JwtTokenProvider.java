@@ -12,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import ru.mtuci.antivirus.service.DemoUserDetailsService;
 
 import java.security.Key;
 import java.util.Collection;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    private final UserDetailsService userDetailsService;
+    private final DemoUserDetailsService userDetailsService;
 
     @Value("${jwt.secret}")
     private String secret;

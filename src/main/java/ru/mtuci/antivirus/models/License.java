@@ -1,29 +1,44 @@
 package ru.mtuci.antivirus.models;
 
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Entity
-@AllArgsConstructor
+import java.time.LocalDate;
+import java.util.Date;
+
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
-@Table(name = "license")
+@AllArgsConstructor
+@Entity
+@Table(name = "licenses")
 public class License {
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(nullable = false, unique = true)
+    private String licenseKey;
 
-    @Column(name = "public_key")
-    private String public_key;
+    private Date first_activation_date;
+    private Date ending_date;
 
-    @Column(name = "key")
-    private String key;
+    @Column(nullable = false)
+    private boolean blocked;
+
+    private Integer device_count;
+    private Integer duration;
+    private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Products product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "type_id", nullable = false)
+    private LicenseType licenseType;
 }
+

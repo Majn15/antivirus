@@ -1,11 +1,13 @@
-package ru.mtuci.antivirus.models;
+package ru.mtuci.antivirus.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class AuthenticationRequest {
-    private String login;
+    private String username;
     private String password;
 }

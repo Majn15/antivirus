@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mtuci.antivirus.configuration.JwtTokenProvider;
 import ru.mtuci.antivirus.models.User;
-import ru.mtuci.antivirus.models.AuthenticationRequest;
+import ru.mtuci.antivirus.requests.AuthenticationRequest;
 import ru.mtuci.antivirus.models.AuthenticationResponse;
 import ru.mtuci.antivirus.repository.UserRepository;
 
@@ -27,23 +27,23 @@ public class AuthenticationController {
     private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthenticationRequest request) {
+    public ResponseEntity<?> username(@RequestBody AuthenticationRequest request) {
         try {
-            String login = request.getLogin();
+            String username = request.getUsername();
 
-            User user = userRepository.findByLogin(login)
+            User user = userRepository.findByUsername(username)
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
             authenticationManager
                     .authenticate(
                             new UsernamePasswordAuthenticationToken(
-                                    login, request.getPassword())
+                                    username, request.getPassword())
                     );
 
             String token = jwtTokenProvider
-                    .createToken(login, user.getRole().getGrantedAuthorities());
+                    .createToken(username, user.getRole().getGrantedAuthorities());
 
-            return ResponseEntity.ok(new AuthenticationResponse(login, token));
+            return ResponseEntity.ok(new AuthenticationResponse(username, token));
         } catch (AuthenticationException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("Invalid login or password");
